@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section><h1>Design Patterns JavaScript</h1></section>
+			<section>
+				<section>
+					<span> Wikipedia describes them as:</span><br>
+					In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within 
+					a given context in software design. It is not a finished design that can be transformed directly into source or machine code.
+					It is a description or template for how to solve a problem that can be used in many different situations.
+				</section>
+				<section>
+					Design patterns are solutions to recurring problems guidelines on how to tackle certain problems.
+					They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen.
+					These are, rather, guidelines on how to tackle certain problems in certain situations.
+				</section>
+				<section>
+					<span>
+						Some of the benefits of using design patterns:
+					</span>
+					<ul>
+						<li>
+							No need to reinvent the wheel (lazy programmer => good programmer)
+						</li>
+						<li>
+							Find a common language with developers
+						</li>
+						<li>
+							You look cool and professional.
+						</li>
+						<li>
+							These patterns go through all programming languages.
+						</li>
+					</ul>
+				</section>
+				<section>
+					<span>Be Careful</span>
+					<ul>
+						<li>
+							Design patterns are not a silver bullet to all your problems.
+						</li>
+						<li>Do not try to force them bad things are supposed to happen, if done so.
+							Keep in mind that design patterns are solutions to problems, not solutions finding problems so don't overthink
+						</li>
+						<li>
+							If used in a correct place in a correct manner, they can prove to be a savior or else they can result in a horrible mess of a code.
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Types of Design Patterns</h2>
+					<ul>
+						<li>Creational</li>
+						<li>Structural</li>
+						<li>Behavioral</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Creational Design Patterns</h2>
+					<span>In plain words</span>
+					Creational patterns are focused towards how to instantiate an object or group of related objects.
+				</section>
+				<section>
+					<span>Wikipedia says</span>
+					In software engineering, creational design patterns are design patterns that deal with object creation mechanisms,
+					trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems
+					or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
+				</section>
+				<section>
+					<h2>Structural Design Patterns</h2>
+					<span>In plain words</span>
+					Structural patterns are mostly concerned with object composition or in other words how the entities can use each other.
+					Or yet another explanation would be, they help in answering "How to build a software component?"
+				</section>
+				<section>
+					<span>Wikipedia says</span>
+					In software engineering, structural design patterns are design patterns that ease the design by
+					identifying a simple way to realize relationships between entities.
+				</section>
+				<section>
+					<h2>Behavioral Design Patterns</h2>
+					<span>In plain words</span>
+					It is concerned with assignment of responsibilities between the objects.
+					What makes them different from structural patterns is they don't just specify the structure
+					but also outline the patterns for message passing/communication between them. Or in other words,
+					they assist in answering "How to run a behavior in software component?"
+				</section>
+				<section>
+					<span>Wikipedia says</span>
+					In software engineering, behavioral design patterns are design patterns that identify common communication patterns
+					between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this
+					communication.
+				</section>
+			</section>
+			<section>
+				<section>
+					<img src="./lib/img/unnamed.png">
+				</section>
+				<section>
+					<h2>Factory Method</h2>
+					<p>define an interface for creating a single object, but let subclasses decide which class to instantiate.
+					Factory Method lets a class defer instantiation to subclasses.</p>
+				</section>
+				<section>
+                    <pre class="fragment visible current-fragment" data-fragment-index="0"><code class="hljs javascript">
+class BmwFactory {
+  static create(type) {
+    if (type === 'X5')
+      return new Bmw(type, 108000, 300);
+    if (type === 'X6')
+      return new Bmw(type, 111000, 320);
+  }
+}
+					</code></pre>
+					<pre class="fragment visible current-fragment" data-fragment-index="1"><code class="hljs javascript">
+class Bmw {
+  constructor(model, price, maxSpeed) {
+    this.model = model;
+    this.price = price;
+    this.maxSpeed = maxSpeed;
+  }
+}
+export default BmwFactory;
+					</code></pre>
+				</section>
+				<section>
+					<h2>Abstract Factory</h2>
+					<p>provide an interface for creating families of related or dependent objects without specifying their concrete classes.</p>
+				</section>
+				<section>
+                    <pre class="fragment visible current-fragment"><code class="hljs javascript">
+function droidProducer(kind) {
+  if (kind === 'battle') return battleDroidFactory;
+  return pilotDroidFactory;
+}
+function battleDroidFactory() {
+  return new B1();
+}
+function pilotDroidFactory() {
+  return new Rx24();
+}
+					</code></pre>
+					</section>
+					<section>
+					<pre class="fragment visible current-fragment"><code class="hljs javascript">
+class B1 {
+  info() {
+	return "B1, Battle Droid";
+  }
+}
+class Rx24 {
+  info() {
+	return "Rx24, Pilot Droid";
+  }
+}
+export default droidProducer;
+					</code></pre>
+				</section>
+				<section>
+					<h2>Builder</h2>
+					<p>separate the construction of a complex object from its representation,
+					allowing the same construction process to create various representations.</p>
+				</section>
+				<section>
+					<pre class="fragment visible current-fragment"><code class="hljs javascript">
+class Car 
+	constructor() {
+		this.autoPilot = false;
+		this.parktronic = false;
+		this.signaling = false;
+	}
+}						
+					</code></pre>
+					</section>
+					<section>
+					<pre class="fragment visible current-fragment"><code class="hljs javascript">
+class CarBuilder {
+	constructor() {
+		this.car = new Car();
+	}
+
+	addAutoPilot(autoPilot) {
+		this.car.autoPilot = autoPilot;
+		return this;
+	}
+
+	addParktronic(parktronic) {
+		this.car.parktronic = parktronic;
+		return this;
+	}
+
+	addSignaling(signaling) {
+		this.car.signaling = signaling;
+		return this;
+	}
+  
+	updateEngine(engine) {
+		this.car.engine = engine;
+		return this;
+	}
+
+	build() {
+		return this.car;
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Singleton</h2>
+					<p>ensure a class has only one instance, and provide a global point of access to it.</p>
+				</section>
+				<section>
+					<pre class="fragment visible current-fragment"><code class="hljs javascript">
+class Person {
+	constructor() {
+	  if (typeof Person.instance === 'object') {
+		return Person.instance;
+	  }
+	  Person.instance = this;
+	  return this;
+	}
+  }
+  
+  export default Person;
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				THE END
+			</section>
+		</div>
+	</div>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			hash: true,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/highlight/highlight.js' },
+				{ src: 'plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+</body>
+
+</html>
